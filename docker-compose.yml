@@ -1,29 +1,32 @@
 version: '3'
 
 services:
-web:
-  build:
-    dockerfile: ./web/dockerfile
-    context: .
-  image: vieira/beverage/web
-  ports:
-    - "3000"
-  networks:
-    - production-network
-  depends_on:
-    - "back-end"
-  container_name: beverage-web
+  web:
+    build:
+      dockerfile: ./web/dockerfile
+      context: .
+    image: felipe6090/beverage-web
+    ports:
+      - "3000"
+    networks:
+      - production-network
+    depends_on:
+      - "back-end"
+    container_name: beverage-web
 
-back-end:
-  build:
-    dockerfile: ./back-end/dockerfile
-    context: .
-  image: vieira/beverage/back-end
-  ports:
-    - "4000"
-  networks:
-    - production-network
-  container_name: beverage-back-end
+  back-end:
+    build:
+      dockerfile: ./back-end/dockerfile
+      context: .
+    environment:
+      - SENDER_EMAIL_ADRESS="felipe@vieiradev.com"
+      - EMAIL_PASSWORD="iLi6SC-sdx-6#TJ"
+    image: felipe6090/beverage-back-end
+    ports:
+      - "4000"
+    networks:
+      - production-network
+    container_name: beverage-back-end
 
 networks:
   production-network:

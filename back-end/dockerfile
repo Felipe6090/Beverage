@@ -1,11 +1,11 @@
 FROM node:latest as packages
 WORKDIR /packages
-COPY package.json .
+COPY . package.json
 RUN yarn
 
 FROM node:latest
-COPY . /back-end
-WORKDIR /Beverage/back-end
-COPY --from=packages /packages/node_modules /TesteTDDRocketSeat1/node_modules
-ENTRYPOINT ["yarn", "start"]
+COPY . /
+WORKDIR /beverage/back-end
+COPY --from=packages /packages/node_modules /back-end/node_modules
+ENTRYPOINT ["yarn", "dev"]
 EXPOSE 4000
